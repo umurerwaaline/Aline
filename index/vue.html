@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tossing Dice Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body style="background-color: antiquewhite;">
+
+<div id="app">
+    <h1>{{ message }}</h1>
+    <button @click="rollDice">Roll Dice </button>
+    <p v-if="diceResult !== null">You rolled: {{ diceResult }}</p>
+</div>
+
+<footer class="footer">
+    <p class="moving-text">Gaming with Vue.js is more fun</p>
+</footer>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            message: 'Welcome to the Tossing Dice Game!',
+            diceResult: null
+        },
+        methods: {
+            rollDice: function() {
+                this.diceResult = Math.floor(Math.random() * 6) + 1;
+            }
+        }
+    });
+
+    setInterval(() => {
+      const footer = document.querySelector(".footer");
+      const text = document.querySelector(".moving-text");
+      const distance = footer.offsetWidth - text.offsetWidth;
+      text.style.left = (parseInt(text.style.left) || 0) + 1 + "px";
+      if (parseInt(text.style.left) >= distance) {
+        text.style.left = -text.offsetWidth + "px";
+      }
+    }, 50);
+</script>
+
+<style>
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  
+}
+.moving-text {
+  position: absolute;
+  left: 0;
+  white-space: nowrap;
+}
+</style>
+
+</body>
+</html>
+
